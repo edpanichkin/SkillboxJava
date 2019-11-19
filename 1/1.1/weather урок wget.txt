@@ -1,0 +1,1 @@
+wget --quiet -O- "http://api.weatherstack.com/current?access_key=0acbd075f86cdc28b7c7c40ef4d30fe0&query=London"
