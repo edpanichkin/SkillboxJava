@@ -1,14 +1,12 @@
 
-public class Loader
-{
-    public static void main(String[] args)
-    {
+public class Loader {
+    public static void main(String[] args) {
         //Урок 1
         Cat catA = new Cat();
         Cat catB = new Cat();
         Cat catC = new Cat();
         Cat catD = new Cat();
-        Cat catE = new Cat(100.0);
+        Cat catE = new Cat(1000.0);
 
         catE.setColorType(CatColor.BLACK);
         System.out.println("CatEColor    " + catE.getColorType());
@@ -31,7 +29,7 @@ public class Loader
         catD.drink(1000.0);
         System.out.println("Кошка D: " + catD.getStatus() + ", Вес " + catD.getWeight());
         System.out.println("Кошка E: " + catE.getStatus() + ", Вес " + catE.getWeight());
-        for (int i=0; i<10000; i++){
+        for (int i=0; i<10000; i++) {
             catE.meow();
         }
         System.out.println("Кошка E: " + catE.getStatus() + ", Вес " + catE.getWeight());
@@ -47,21 +45,15 @@ public class Loader
 
         //Урок 5
         Cat catF = new Cat(1001.0);
+        Cat kitten = Cat.createKitten();
         System.out.println("Кошка F: " + catF.getStatus() + ", Вес " + catF.getWeight());
-        System.out.println("Котенок: " + getKitty().getWeight());
+        System.out.println("Котенок: " + kitten.getWeight());
 
         //Урок 7
-
         Cat catH = catA.deepCopy();
         System.out.println("Кошка H вес: " + catH.getWeight() + ", Вес оригинала " + catA.getWeight());
         catE.feed(10002.0);
         System.out.println("Dead eat "  + " catE status " + catE.getStatus() + "- catE weight " +catE.getWeight()
         + " - feedamount " + catE.feedAmount());
-
-}
-    public static Cat getKitty()
-    {
-        return new Cat(true);
     }
-
 }
