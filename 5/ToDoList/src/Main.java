@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-        String regex = "(?<cmd>ADD|LIST)\\s*(.*)?";
+        String regex = "(?<cmd>ADD|LIST|DELETE|EDIT)\\s*(?<num>\\d+)?\\s*(?<text>.*)";
         String string = "";
         ArrayList<String> todoList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
