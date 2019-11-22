@@ -6,7 +6,7 @@ public class Loader {
         Cat catB = new Cat();
         Cat catC = new Cat();
         Cat catD = new Cat();
-        Cat catE = new Cat(1000.0);
+        Cat catE = new Cat(1005.0);
 
         catE.setColorType(CatColor.BLACK);
         System.out.println("CatEColor    " + catE.getColorType());

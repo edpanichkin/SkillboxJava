@@ -41,32 +41,60 @@ public class Cat {
     }
 
     public void meow() {
-        String s = this.getStatus();
-        if (alive == true) {
+        if (weight >= minWeight && alive) {
             weight = weight - 1;
-            System.out.print("Meow ");
+            System.out.println("Meow " + weight);
+            if (weight < minWeight) {
+                alive = false;
+                catCount--;
+            }
+        }
+        else if (alive) {
+            catCount--;
+            alive = false;
         }
     }
 
     public void feed(Double amount) {
-        String s = this.getStatus();
-        if (alive == true) {
+        if ((amount <= (maxWeight - weight)) && alive) {
             foodAmount = foodAmount + amount;
             weight = weight + amount;
+            if (weight > maxWeight) {
+                alive = false;
+                catCount--;
+            }
+        }
+        else if (alive) {
+            catCount--;
+            alive = false;
         }
     }
-    public void drink(Double amount){
-        String s = this.getStatus();
-        if (alive == true) {
+    public void drink(Double amount) {
+        if (weight <= maxWeight && alive) {
             weight = weight + amount;
             foodAmount = foodAmount + amount;
+            if (weight > maxWeight) {
+                alive = false;
+                catCount--;
+            }
+        }
+        else if (alive) {
+            catCount--;
+            alive = false;
         }
     }
     public void poo() {
-        String s = this.getStatus();
-        if (alive == true) {
+        if (alive && weight >= minWeight) {
             weight = weight - 1000 * Math.random();
-            System.out.println("UFF");
+            System.out.println("UFF" + weight);
+            if (weight < minWeight) {
+                alive = false;
+                catCount--;
+            }
+        }
+        else if (alive) {
+            catCount--;
+            alive = false;
         }
     }
     public void setColorType (CatColor type) {
@@ -82,7 +110,7 @@ public class Cat {
 
     public static Integer getCount() {
         return catCount;
-}
+    }
     public CatColor getColorType () {
         return type;
     }
@@ -98,8 +126,8 @@ public class Cat {
             if (alive == true) {
                 catCount--;
             }
-                alive = false;
-                return "Exploded";
+            alive = false;
+            return "Exploded";
         }
         else if (weight > originWeight) {
             return "Sleeping";
