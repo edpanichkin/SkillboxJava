@@ -5,59 +5,63 @@ import java.util.TreeMap;
 public class Main {
 
     public static void main(String[] args) {
-        TreeMap<Integer, String> phoneBook = new TreeMap<>();
+        TreeMap<Integer, String> nameByPhoneBook = new TreeMap<>();
         Scanner reader = new Scanner(System.in);
-        phoneBook.put(1, "a");
-        phoneBook.put(2, "b");
-        phoneBook.put(3, "c");
+        nameByPhoneBook.put(1, "a");
+        nameByPhoneBook.put(2, "b");
+        nameByPhoneBook.put(3, "c");
 
-
-        //System.out.println(phoneBook.keySet());
-        for (;;) {
+        for (; ; ) {
             System.out.print("Введите LIST / Контакт / Телефон / EXIT ");
-            var inputData = (reader.nextLine().trim());
+            var inputData = reader.nextLine().trim();
 
-            if (inputData.matches("[0-9]+")) {
-                var key = Integer.valueOf(inputData);
-                if (phoneBook.containsKey(key)) {
+            if (DigitTrue(inputData)) {
+                var phone = Integer.valueOf(inputData);
+                if (nameByPhoneBook.containsKey(phone)) {
                     System.out.println("---> " +
-                            "Телефон: " + inputData + ", Записан как: " + phoneBook.get(Integer.valueOf(inputData)));
+                            "Телефон: " + inputData + ", Записан как: "
+                            + nameByPhoneBook.get(Integer.valueOf(inputData)));
                 } else {
                     System.out.print("Телефон записан, введите имя контакта: ");
                     String value = reader.nextLine();
                     if (value.matches("[a-zA-Zа-яА-Я\\s]+")) {
-                        phoneBook.put(key, value);
-                    }
-                    else {
+                        nameByPhoneBook.put(phone, value);
+                    } else {
                         System.out.println("Неверный ввод");
                     }
                 }
-            }
-            else if (inputData.equals("LIST")) {
-                for (Integer name : phoneBook.keySet())
-                    System.out.println("Number: " + name + " name: " + phoneBook.get(name));
-            }
-            else if (inputData.equals("EXIT")) {
+            } else if (inputData.equals("LIST")) {
+                for (Integer name : nameByPhoneBook.keySet())
+                    System.out.println("Number: " + name + " name: " + nameByPhoneBook.get(name));
+            } else if (inputData.equals("EXIT")) {
                 break;
-            }
-            else if (phoneBook.containsValue(inputData)) {
+            } else if (nameByPhoneBook.containsValue(inputData)) {
                 System.out.print("---> ");
-                for (Integer name : phoneBook.keySet()) {
-                    if (phoneBook.get(name).equals(inputData)) {
-                        System.out.println("Телефон: " + name + ", Записан как: " + phoneBook.get(name));
+                for (Integer name : nameByPhoneBook.keySet()) {
+                    if (nameByPhoneBook.get(name).equals(inputData)) {
+                        System.out.println("Телефон: " + name + ", Записан как: "
+                                + nameByPhoneBook.get(name));
                     }
                 }
-            }
-            else {
+            } else {
                 System.out.print("Контакт записан, введите номер телефона: ");
-                var key = reader.nextLine().trim();
-                if (key.matches("[0-9]+")) {
-                    phoneBook.put(Integer.valueOf(key), inputData);
-                }
-                else {
+                var keyPhone = reader.nextLine().trim();
+                if (DigitTrue(keyPhone)) {
+                    nameByPhoneBook.put(Integer.valueOf(keyPhone), inputData);
+                } else {
                     System.out.println("Неверный ввод");
                 }
             }
         }
+
     }
+
+    public static boolean DigitTrue(String str) {
+        boolean matchDig = false;
+        if (str.matches("[0-9]+")){
+            matchDig = true;
+        }
+            return matchDig;
+    }
+
 }
