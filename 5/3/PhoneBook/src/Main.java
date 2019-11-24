@@ -11,16 +11,16 @@ public class Main {
         nameByPhoneBook.put(2, "b");
         nameByPhoneBook.put(3, "c");
 
-        for (; ; ) {
+        for (;;) {
             System.out.print("Введите LIST / Контакт / Телефон / EXIT ");
             var inputData = reader.nextLine().trim();
 
-            if (DigitTrue(inputData)) {
+            if (isDigit(inputData)) {
                 var phone = Integer.valueOf(inputData);
                 if (nameByPhoneBook.containsKey(phone)) {
                     System.out.println("---> " +
                             "Телефон: " + inputData + ", Записан как: "
-                            + nameByPhoneBook.get(Integer.valueOf(inputData)));
+                            + nameByPhoneBook.get(phone));
                 } else {
                     System.out.print("Телефон записан, введите имя контакта: ");
                     String value = reader.nextLine();
@@ -31,8 +31,9 @@ public class Main {
                     }
                 }
             } else if (inputData.equals("LIST")) {
-                for (Integer name : nameByPhoneBook.keySet())
-                    System.out.println("Number: " + name + " name: " + nameByPhoneBook.get(name));
+                for (Integer phone : nameByPhoneBook.keySet()) {
+                    System.out.println("Number: " + phone + " name: " + nameByPhoneBook.get(phone));
+                }
             } else if (inputData.equals("EXIT")) {
                 break;
             } else if (nameByPhoneBook.containsValue(inputData)) {
@@ -46,22 +47,16 @@ public class Main {
             } else {
                 System.out.print("Контакт записан, введите номер телефона: ");
                 var keyPhone = reader.nextLine().trim();
-                if (DigitTrue(keyPhone)) {
+                if (isDigit(keyPhone)) {
                     nameByPhoneBook.put(Integer.valueOf(keyPhone), inputData);
                 } else {
                     System.out.println("Неверный ввод");
                 }
             }
         }
-
     }
 
-    public static boolean DigitTrue(String str) {
-        boolean matchDig = false;
-        if (str.matches("[0-9]+")){
-            matchDig = true;
-        }
-            return matchDig;
+    public static boolean isDigit(String str) {
+        return str.matches("[0-9]+");
     }
-
 }
