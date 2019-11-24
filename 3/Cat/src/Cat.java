@@ -7,8 +7,6 @@ public class Cat {
     private Double originWeight;
     private Double weight;
     private Double foodAmount;
-    private Double minWeight;
-    private Double maxWeight;
     private CatColor type;
     private boolean alive;
     public static Integer catCount = 0;
@@ -19,13 +17,11 @@ public class Cat {
     public Cat(Double weight) {
         this.weight = weight;
         originWeight = weight;
-        minWeight = 1000.0;
-        maxWeight = 9000.0;
         foodAmount = 0.0;
         alive = true;
         catCount++;
 
-        if (weight < minWeight) {
+        if (weight < MIN_WEIGHT) {
             alive = false;
             catCount--;
             System.out.println("Dead cat was created");
@@ -41,10 +37,10 @@ public class Cat {
     }
 
     public void meow() {
-        if (weight >= minWeight && alive) {
+        if (weight >= MIN_WEIGHT && alive) {
             weight = weight - 1;
             System.out.println("Meow " + weight);
-            if (weight < minWeight) {
+            if (weight < MIN_WEIGHT) {
                 alive = false;
                 catCount--;
             }
@@ -56,10 +52,10 @@ public class Cat {
     }
 
     public void feed(Double amount) {
-        if ((amount <= (maxWeight - weight)) && alive) {
+        if ((amount <= (MAX_WEIGHT - weight)) && alive) {
             foodAmount = foodAmount + amount;
             weight = weight + amount;
-            if (weight > maxWeight) {
+            if (weight > MAX_WEIGHT) {
                 alive = false;
                 catCount--;
             }
@@ -70,10 +66,10 @@ public class Cat {
         }
     }
     public void drink(Double amount) {
-        if (weight <= maxWeight && alive) {
+        if (weight <= MAX_WEIGHT && alive) {
             weight = weight + amount;
             foodAmount = foodAmount + amount;
-            if (weight > maxWeight) {
+            if (weight > MAX_WEIGHT) {
                 alive = false;
                 catCount--;
             }
@@ -84,10 +80,10 @@ public class Cat {
         }
     }
     public void poo() {
-        if (alive && weight >= minWeight) {
+        if (alive && weight >= MIN_WEIGHT) {
             weight = weight - 1000 * Math.random();
             System.out.println("UFF" + weight);
-            if (weight < minWeight) {
+            if (weight < MIN_WEIGHT) {
                 alive = false;
                 catCount--;
             }
@@ -115,14 +111,14 @@ public class Cat {
         return type;
     }
     public String getStatus() {
-        if(weight < minWeight) {
+        if(weight < MIN_WEIGHT) {
             if (alive == true) {
                 catCount--;
             }
             alive = false;
             return "Dead";
         }
-        else if (weight > maxWeight) {
+        else if (weight > MAX_WEIGHT) {
             if (alive == true) {
                 catCount--;
             }
