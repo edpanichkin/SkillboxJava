@@ -18,15 +18,10 @@ public class Cat {
         this.weight = weight;
         originWeight = weight;
         foodAmount = 0.0;
-        alive = true;
-        catCount++;
-
-        if (weight < MIN_WEIGHT) {
-            alive = false;
-            catCount--;
-            System.out.println("Dead cat was created");
-        }
+        alive = weight > MIN_WEIGHT && weight <= MAX_WEIGHT;
+        catCount = alive ? catCount + 1 : catCount;
     }
+
     public static Cat createKitten() {
         Cat cat = new Cat (100.0 + 100.0 * Math.random());
         return cat;
@@ -45,10 +40,6 @@ public class Cat {
                 catCount--;
             }
         }
-        else if (alive) {
-            catCount--;
-            alive = false;
-        }
     }
 
     public void feed(Double amount) {
@@ -60,10 +51,6 @@ public class Cat {
                 catCount--;
             }
         }
-        else if (alive) {
-            catCount--;
-            alive = false;
-        }
     }
     public void drink(Double amount) {
         if (weight <= MAX_WEIGHT && alive) {
@@ -74,10 +61,6 @@ public class Cat {
                 catCount--;
             }
         }
-        else if (alive) {
-            catCount--;
-            alive = false;
-        }
     }
     public void poo() {
         if (alive && weight >= MIN_WEIGHT) {
@@ -87,10 +70,6 @@ public class Cat {
                 alive = false;
                 catCount--;
             }
-        }
-        else if (alive) {
-            catCount--;
-            alive = false;
         }
     }
     public void setColorType (CatColor type) {
@@ -112,17 +91,18 @@ public class Cat {
     }
     public String getStatus() {
         if(weight < MIN_WEIGHT) {
-            if (alive == true) {
+            if (alive) {
                 catCount--;
+                alive = false;
             }
-            alive = false;
+
             return "Dead";
         }
         else if (weight > MAX_WEIGHT) {
-            if (alive == true) {
+            if (alive) {
                 catCount--;
+                alive = false;
             }
-            alive = false;
             return "Exploded";
         }
         else if (weight > originWeight) {
