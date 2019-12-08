@@ -1,4 +1,4 @@
-import javax.xml.bind.SchemaOutputResolver;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,21 +40,25 @@ public class Loader {
         }
         carNumber = justUniques(carNumberNotUnique);
 
-        System.out.println("Время генерации номеров: " + (Calendar.getInstance().getTimeInMillis() - start) + " миллисекунд, Сгенерировано: " + carNumberNotUnique.length +" Уникальных: " + carNumber.length);
-        System.out.println("//Введите номер ТС:  код региона 01-99, блатной - это одинаковые цифры в номере\n//серия Заглавными ENG \"A\",\"B\",\"E\",\"K\",\"M\",\"H\",\"O\",\"P\",\"C\",\"T\",\"Y\"");
+        System.out.println("Время генерации номеров: " + (Calendar.getInstance().getTimeInMillis() - start)
+                + " миллисекунд, Сгенерировано: " + carNumberNotUnique.length +" Уникальных: " + carNumber.length);
+        System.out.println("//Введите номер ТС:  код региона 01-99, блатной - это одинаковые цифры в номере\n" +
+                "//серия Заглавными ENG \"A\",\"B\",\"E\",\"K\",\"M\",\"H\",\"O\",\"P\",\"C\",\"T\",\"Y\"");
         String numConsole = reader.readLine().trim();
-        start = Calendar.getInstance().getTimeInMillis();
+        start = System.nanoTime();
         //Первый поиск
         boolean searched = false;
         for (int i = 0; i < carNumber.length - 1; i++) {
             if (numConsole.equals(carNumber[i])) {
-                System.out.println("--> Найдена/ Время поиска перебором номера в ms: " + (Calendar.getInstance().getTimeInMillis() - start) + "\n");
+                System.out.println("--> Найдена/ Время поиска перебором номера в ns: "
+                        + (System.nanoTime() - start) + "\n");
                 searched = true;
                 break;
             }
         }
-        if (searched == false) {
-            System.out.println("Данного номера ТС не сгенерированно, поиск: " + (Calendar.getInstance().getTimeInMillis() - start) + "ms");
+        if (!searched) {
+            System.out.println("Данного номера ТС не сгенерированно, поиск: "
+                    + (System.nanoTime() - start) + "ns");
         }
         //Блок для других поисков
 
@@ -62,33 +66,26 @@ public class Loader {
         HashSet<String> carNumberSearchHash = new HashSet<>();
         TreeSet<String> carNumberSearchTree = new TreeSet<>();
 
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
         System.out.println("...Идет процес присвоения...");
         for (int i = 0; i < carNumber.length; i++) {
             carNumberSearch.add(carNumber[i]);
             carNumberSearchHash.add(carNumber[i]);
             carNumberSearchTree.add(carNumber[i]);
         }
-        System.out.println("В коллекции записано, затратило: " + (System.currentTimeMillis() - start) + "ms");
+        System.out.println("В коллекции записано, затратило: " + (System.nanoTime() - start) + "ns");
 
         long startHash = System.nanoTime();
-        if (carNumberSearchHash.contains(numConsole)) {
+        if (carNumberSearchHash.contains(numConsole))
             System.out.println("Hash search " + (System.nanoTime() - startHash) + "ns - true");
-        }
-        else {
+        else
             System.out.println("Hash search " + (System.nanoTime() - startHash) + "ns - false");
-        }
 
         long startTree = System.nanoTime();
-        if (carNumberSearchTree.contains(numConsole)) {
+        if (carNumberSearchTree.contains(numConsole))
             System.out.println("Tree search " + (System.nanoTime() - startTree) + "ns - true");
-        }
-        else {
-            System.out.println("Tree search " + (System.nanoTime() - startTree) + "ns - false"); }
-
-        long startB = System.nanoTime();
-       // Collections.sort(carNumberSearch);
-       // System.out.println("Сортировка binary заняла : " + (System.nanoTime() - startB) + "ms");
+        else
+            System.out.println("Tree search " + (System.nanoTime() - startTree) + "ns - false");
 
         long startSort = System.nanoTime();
         if (Collections.binarySearch(carNumberSearch, numConsole) > 0)
@@ -103,7 +100,7 @@ public class Loader {
         String conCat = "";
         int dec = 10;
         for (int i = 0; i < length - 1; i++) {
-            conCat = conCat + "0";
+            conCat +="0";
         }
 
         for (int i = 0; i < powLength - 1; i++) {
