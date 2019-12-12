@@ -14,6 +14,7 @@ public class Cat {
     public Cat() {
         this(1500.0 + 3000.0 * Math.random());
     }
+
     public Cat(Double weight) {
         this.weight = weight;
         originWeight = weight;
@@ -52,6 +53,7 @@ public class Cat {
             }
         }
     }
+
     public void drink(Double amount) {
         if (weight <= MAX_WEIGHT && alive) {
             weight = weight + amount;

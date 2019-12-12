@@ -1,5 +1,5 @@
 public class CreditBankAccount extends BankAccount {
-    public int percentage = 1;
+    public static final int PERCENTAGE = 1;
 
     public CreditBankAccount(double startCash, String name) {
         super(startCash, name);
@@ -7,8 +7,8 @@ public class CreditBankAccount extends BankAccount {
 
     @Override
     public void getCashOut(double cash) {
-        Double commision = (cash * percentage) / 100;
+        Double commision = (cash * PERCENTAGE) / 100;
         super.getCashOut(cash + commision);
-        System.out.printf("-- Комисия %.2f", commision);
+       // System.out.printf("-- Комисия %.2f", commision);
     }
 }
