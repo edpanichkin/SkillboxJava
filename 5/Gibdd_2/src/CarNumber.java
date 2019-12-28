@@ -1,7 +1,3 @@
-import javax.sound.sampled.EnumControl;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class CarNumber {
@@ -39,19 +35,20 @@ public class CarNumber {
         }
 
         carNumber = justUniques(carNumber, System.nanoTime());
+        Collections.sort(carNumber);
         ArrayList<String> carNumberSearch = new ArrayList<>(carNumber);
         HashSet<String> carNumberSearchHash = new HashSet<>(carNumber);
         TreeSet<String> carNumberSearchTree = new TreeSet<>(carNumber);
         //String numConsole = reader.readLine().trim();
 
         System.out.println("DIRECT  Search | "
-                + OutputString(DirectSearch(carNumber, numConsole, System.nanoTime())));
+                + outputString(directSearch(carNumber, numConsole, System.nanoTime())));
         System.out.println("BINARY  Search | "
-                + OutputString(BinarySearch(carNumber, numConsole, System.nanoTime())));
+                + outputString(binarySearch(carNumber, numConsole, System.nanoTime())));
         System.out.println("HASHSET Search | "
-                + OutputString(HashSearch(carNumberSearchHash, numConsole, System.nanoTime())));
+                + outputString(hashSearch(carNumberSearchHash, numConsole, System.nanoTime())));
         System.out.println("TREESET Search | "
-                + OutputString(TreeSearch(carNumberSearchTree, numConsole, System.nanoTime())));
+                + outputString(treeSearch(carNumberSearchTree, numConsole, System.nanoTime())));
     }
 
     public String[] nullFillString(Integer length) {
@@ -62,12 +59,12 @@ public class CarNumber {
         }
         return stringToFill;
     }
-    public String OutputString(long time){
-        Underline();
+    public String outputString(long time) {
+        underline();
         return time > 0 ? (String.valueOf(time) + " ns ") : "false ";
     }
 
-    public ArrayList justUniques(ArrayList arr, long start) {
+    public ArrayList<String> justUniques(ArrayList<String> arr, long start) {
         Set<String> set = new HashSet<>(arr);
         arr.clear();
         arr.addAll(set);
@@ -77,16 +74,16 @@ public class CarNumber {
         return arr;
     }
 
-    public long BinarySearch(ArrayList carNumber, String numConsole, long start) {
+    public long binarySearch(ArrayList<String> carNumber, String numConsole, long start) {
         start = System.nanoTime() - start;
-        Collections.sort(carNumber);
-        if(Collections.binarySearch(carNumber, numConsole)<0){
-            start = -1l;
+
+        if(Collections.binarySearch(carNumber, numConsole)<0) {
+            start = -1L;
         }
         return start;
     }
 
-    public long DirectSearch(ArrayList carNumber, String numConsole, long start) {
+    public long directSearch(ArrayList<String> carNumber, String numConsole, long start) {
         for (int i = 0; i < carNumber.size() - 1; i++) {
             if (carNumber.get(i).equals(numConsole)) {
                 searched = true;
@@ -95,30 +92,30 @@ public class CarNumber {
             start = System.nanoTime() - start;
         }
         if (!searched) {
-            start =-1l;
+            start =-1L;
         }
         return start;
     }
 
-    public long HashSearch(HashSet carNumber, String numConsole, long start) {
+    public long hashSearch(HashSet<String> carNumber, String numConsole, long start) {
         if (carNumber.contains(numConsole)) {
             start = System.nanoTime() - start;
         } else {
-            start =-1l;
+            start =-1L;
         }
         return start;
     }
 
-    public long TreeSearch(TreeSet carNumber, String numConsole, long start) {
+    public long treeSearch(TreeSet<String> carNumber, String numConsole, long start) {
         if (carNumber.contains(numConsole)) {
             start = System.nanoTime() - start;
         } else {
-            start =-1l;
+            start = -1L;
         }
         return start;
     }
 
-    public void Underline() {
+    public void underline() {
         System.out.println("________________________________________");
     }
 }
