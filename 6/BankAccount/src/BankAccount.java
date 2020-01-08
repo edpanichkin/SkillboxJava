@@ -1,33 +1,34 @@
+import java.time.LocalDate;
+
 public class BankAccount {
-    private double cashCount;
+    private float cashCount;
     private String nameAccount;
 
-    public BankAccount (double startCash, String name) {
+    public BankAccount (float startCash, String name) {
         this.nameAccount = name;
         this.cashCount = startCash;
     }
 
     public void printCashCount() {
-        System.out.printf("\nНа счете %s хранится %.2f", nameAccount, cashCount);
+        System.out.printf("На счете %s хранится %.2f%n", nameAccount, cashCount);
     }
 
-    public void putCashCount(Double cash) {
-        System.out.printf("\nНа счет %s внесли средства %.2f, теперь остаток %.2f",
+    public void putCashCount(float cash) {
+        System.out.printf("На счет %s внесли средства %.2f, теперь остаток %.2f%n",
                 nameAccount, cash, (this.cashCount += cash));
     }
 
-    public void getCashOut(double cash) {
+    public void getCashOut(float cash) {
         if(withdraw(cash)) {
             cashCount -= cash;
-            System.out.printf("\nВыведено %.2f, Остаток %.2f ", cash, cashCount);
+            System.out.printf("Выведено %.2f, Остаток %.2f %n", cash, cashCount);
         }
         else {
-            System.out.printf("\n !! Недостаточно средств для вывода, попытка снять %.2f, на счету %.2f",
+            System.out.printf(" !! Недостаточно средств для вывода, попытка снять %.2f, на счету %.2f%n",
                     cash, cashCount);
         }
-
     }
-    public boolean withdraw(double cash) {
-        return cashCount > cash;
+    public boolean withdraw(float cash) {
+        return cashCount >= cash;
 }
 }
