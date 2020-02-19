@@ -9,20 +9,21 @@ public class DebetBankAccount extends BankAccount {
     @Override
     public void putCashCount(float cash) {
         super.putCashCount(cash);
+        //dateLastIncome = LocalDate.of(2020,01,18);
         dateLastIncome = LocalDate.now();
     }
     public boolean isMonthPassed () {
-        return  dateLastIncome.isAfter(LocalDate.now().plusMonths(1));
+        return  LocalDate.now().isAfter(dateLastIncome.plusMonths(1));
     }
     @Override
-    public void getCashOut(float cash) {
+    public boolean getCashOut(float cash) {
         if (isMonthPassed()) {
-            super.getCashOut(cash);
-            System.out.println("Вы успешно сняли свои средства в размере " + cash);
+            return super.getCashOut(cash);
         }
         else {
             System.out.println("\nРано снимать, деньги были внесены в: "
                     + dateLastIncome);
+            return false;
         }
     }
 }

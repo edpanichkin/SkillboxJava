@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 public class BankAccount {
     private float cashCount;
     private String nameAccount;
@@ -18,17 +16,24 @@ public class BankAccount {
                 nameAccount, cash, (this.cashCount += cash));
     }
 
-    public void getCashOut(float cash) {
-        if(withdraw(cash)) {
+    public boolean getCashOut(float cash) {
+        if(balancePositive(cash)) {
             cashCount -= cash;
             System.out.printf("Выведено %.2f, Остаток %.2f %n", cash, cashCount);
+            return true;
         }
         else {
             System.out.printf(" !! Недостаточно средств для вывода, попытка снять %.2f, на счету %.2f%n",
                     cash, cashCount);
+            return false;
         }
     }
-    public boolean withdraw(float cash) {
+    public boolean balancePositive(float cash) {
         return cashCount >= cash;
-}
+    }
+    public void transferTo (BankAccount toBankCard, float cash) {
+        if(BankAccount.this.getCashOut(cash)) {
+            toBankCard.putCashCount(cash);
+        }
+    }
 }

@@ -6,9 +6,10 @@ public class CreditBankAccount extends BankAccount {
     }
 
     @Override
-    public void getCashOut(float cash) {
+    public boolean getCashOut(float cash) {
         float commision = (cash * PERCENTAGE) / 100;
-        super.getCashOut(cash + commision);
-        System.out.printf("-- Комисия %.2f%n", commision);
+        System.out.printf("-- Комисия %.2f  / ", commision);
+        return super.getCashOut(cash + commision);
+
     }
 }
